@@ -63,6 +63,7 @@ private List<ObserverInterface> obs = new LinkedList<>();
     public void returnDefualt() {
         this.x = (float)getWidth()/2;
         this.y = (float)getHeight()/2;
+        notifyObservers(new FlightDetails(normelizeAilron(this.x), normelizeElevator(this.y)));
     }
 
 
