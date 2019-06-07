@@ -4,5 +4,5 @@
     <string name="defualt_port">1234</string>
     <string name="ip_connectactivity">IP:</string>
     <string name="port_connectactivity">Port:</string>
-    <string name="Connect_connectactivity" >Connect!</string>
+    <string name="Connect_connectactivity">Connect!</string>
 </resources>
