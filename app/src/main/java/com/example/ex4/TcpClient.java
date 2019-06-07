@@ -20,7 +20,7 @@ public class TcpClient extends AsyncTask<String, String, Void> {
             this.clientSocket = new Socket(strings[0], Integer.parseInt(strings[1]));
             this.outToServer = new DataOutputStream(this.clientSocket.getOutputStream());
             while (true) {
-                this.outToServer.writeUTF(queue.take());
+                this.outToServer.write((queue.take()+"\r\n").getBytes());
                 this.outToServer.flush();
             }
         }catch (Exception e) {

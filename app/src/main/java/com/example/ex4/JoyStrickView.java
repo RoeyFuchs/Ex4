@@ -19,6 +19,10 @@ public class JoyStrickView extends View implements ObservableInterface {
 private float x;
 private float y;
 private float radius;
+private float startWid;
+private float endWid;
+private float startHei;
+private float endHei;
 private RectF oval;
 private Boolean playMoving = false;
 private List<ObserverInterface> obs = new LinkedList<>();
@@ -48,7 +52,12 @@ private List<ObserverInterface> obs = new LinkedList<>();
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         returnDefualt();
-        this.oval = new RectF((float)getWidth()/8,(float)getHeight()/8 , getWidth()-((float)getWidth()/8), getHeight()-((float)getHeight()/8));
+        this.startWid = (float)getWidth()/8;
+        this.endWid = (float)getWidth()-((float)getWidth()/8);
+        this.startHei = (float)getHeight()/8;
+        this.endHei = getHeight()-((float)getHeight()/8);
+
+        this.oval = new RectF(this.startWid,this.startHei , this.endWid, this.endHei);
     }
 
     public void returnDefualt() {
@@ -72,7 +81,7 @@ private List<ObserverInterface> obs = new LinkedList<>();
                 if (CheckForLimit(event.getX(), event.getY())) {
                     this.x = event.getX();
                     this.y = event.getY();
-                    notifyObservers(new FlightDetails(this.x, this.y));
+                    notifyObservers(new FlightDetails(normelizeAilron(this.x), normelizeElevator(this.y)));
                     invalidate();
                 }
                 break;
@@ -108,6 +117,14 @@ private List<ObserverInterface> obs = new LinkedList<>();
         for(ObserverInterface obs : this.obs) {
             obs.update(flightDetails);
         }
+    }
+
+    public float normelizeAilron(float x) {
+        return (x-((this.startWid+this.endWid)/2))/((this.endWid-this.startWid)/2);
+    }
+
+    public float normelizeElevator(float y) {
+        return (y-((this.startHei+this.endHei)/2))/((this.startHei-this.endHei)/2);
     }
 
 }
