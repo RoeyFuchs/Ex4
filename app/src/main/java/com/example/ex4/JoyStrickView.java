@@ -56,7 +56,6 @@ private List<ObserverInterface> obs = new LinkedList<>();
         this.endWid = (float)getWidth()-((float)getWidth()/8);
         this.startHei = (float)getHeight()/8;
         this.endHei = getHeight()-((float)getHeight()/8);
-
         this.oval = new RectF(this.startWid,this.startHei , this.endWid, this.endHei);
     }
 

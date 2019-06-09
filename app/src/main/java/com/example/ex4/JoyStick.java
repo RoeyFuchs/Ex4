@@ -1,6 +1,7 @@
 package com.example.ex4;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +31,11 @@ private String elevatorCommand = "set /controls/flight/elevator ";
         JoyStrickView joyStrickView = new JoyStrickView(this);
         joyStrickView.addToObserver(this);
         setContentView(joyStrickView);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     public void onDestroy() {
