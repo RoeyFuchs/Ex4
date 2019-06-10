@@ -4,6 +4,11 @@ public class FlightDetails {
     private Float Ailron;
     private Float Elevator;
 
+    /**
+     * constructor
+     * @param ailron
+     * @param elevator
+     */
     public FlightDetails(float ailron, float elevator) {
         this.Ailron = ailron;
         this.Elevator = elevator;
