@@ -1,8 +1,6 @@
 package com.example.ex4;
 
-
 import android.os.AsyncTask;
-
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;

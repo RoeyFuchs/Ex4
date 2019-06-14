@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.v4.view.MotionEventCompat;
 import android.view.MotionEvent;
@@ -13,12 +11,11 @@ import android.view.View;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Observable;
 
-public class JoyStrickView extends View implements ObservableInterface {
-private float x;
-private float y;
-private float radius;
+public class JoyStickView extends View implements ObservableInterface {
+private float x = 0;
+private float y = 0;
+private final float radius = 100;
 private float startWid;
 private float endWid;
 private float startHei;
@@ -28,10 +25,8 @@ private Boolean playMoving = false;
 private List<ObserverInterface> obs = new LinkedList<>();
 
 
-    public JoyStrickView(Context context) {
+    public JoyStickView(Context context) {
         super(context);
-        this.radius = 100;
-        this.x = this.y = 0;
     }
 
     /**
@@ -63,12 +58,12 @@ private List<ObserverInterface> obs = new LinkedList<>();
      */
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        returnDefualt();
         this.startWid = (float)getWidth()/8;
         this.endWid = (float)getWidth()-((float)getWidth()/8);
         this.startHei = (float)getHeight()/8;
         this.endHei = getHeight()-((float)getHeight()/8);
         this.oval = new RectF(this.startWid,this.startHei , this.endWid, this.endHei);
+        returnDefualt();
     }
 
     /**
@@ -137,11 +132,6 @@ private List<ObserverInterface> obs = new LinkedList<>();
      */
     Boolean CheckForLimit(float xVal, float yVal) {
         return (this.oval.contains(xVal, yVal));
-        // &&
-        //                this.oval.contains(xVal, yVal+radius) &&
-        //                this.oval.contains(xVal, yVal-radius) &&
-        //                this.oval.contains(xVal+radius, yVal) &&
-        //                this.oval.contains(xVal-radius, yVal))
     }
 
 

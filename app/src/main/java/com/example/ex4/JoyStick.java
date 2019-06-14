@@ -2,21 +2,14 @@ package com.example.ex4;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-
-import java.io.DataOutputStream;
-import java.net.Socket;
-import java.util.Observable;
-import java.util.Observer;
 
 public class JoyStick extends AppCompatActivity implements ObserverInterface {
 
 private TcpClient tcpClient;
-private  String alironCommand = "set /controls/flight/aileron ";
-private String elevatorCommand = "set /controls/flight/elevator ";
+private final String alironCommand = "set /controls/flight/aileron ";
+private final String elevatorCommand = "set /controls/flight/elevator ";
 
     /**
      * initialize values in joystick creation
@@ -35,9 +28,9 @@ private String elevatorCommand = "set /controls/flight/elevator ";
         }catch(Exception e) {
             System.out.println(e.toString());
         }
-        JoyStrickView joyStrickView = new JoyStrickView(this);
-        joyStrickView.addToObserver(this);
-        setContentView(joyStrickView);
+        JoyStickView joyStickView = new JoyStickView(this);
+        joyStickView.addToObserver(this);
+        setContentView(joyStickView);
     }
 
     @Override
@@ -61,6 +54,5 @@ private String elevatorCommand = "set /controls/flight/elevator ";
         tcpClient.Send(this.alironCommand + flightDetails.getAilron());
         tcpClient.Send(this.elevatorCommand + flightDetails.getElevator());
     }
-
 
 }
