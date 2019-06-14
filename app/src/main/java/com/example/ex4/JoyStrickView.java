@@ -31,6 +31,7 @@ private List<ObserverInterface> obs = new LinkedList<>();
     public JoyStrickView(Context context) {
         super(context);
         this.radius = 100;
+        this.x = this.y = 0;
     }
 
     protected void onDraw(Canvas canvas) {
@@ -100,11 +101,12 @@ private List<ObserverInterface> obs = new LinkedList<>();
     }
 
     Boolean CheckForLimit(float xVal, float yVal) {
-        return (this.oval.contains(xVal, yVal) &&
-                this.oval.contains(xVal, yVal+radius) &&
-                this.oval.contains(xVal, yVal-radius) &&
-                this.oval.contains(xVal+radius, yVal) &&
-                this.oval.contains(xVal-radius, yVal));
+        return (this.oval.contains(xVal, yVal));
+        // &&
+        //                this.oval.contains(xVal, yVal+radius) &&
+        //                this.oval.contains(xVal, yVal-radius) &&
+        //                this.oval.contains(xVal+radius, yVal) &&
+        //                this.oval.contains(xVal-radius, yVal))
     }
 
 
