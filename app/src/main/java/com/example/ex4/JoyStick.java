@@ -17,13 +17,20 @@ public class JoyStick extends AppCompatActivity implements ObserverInterface {
 private TcpClient tcpClient;
 private  String alironCommand = "set /controls/flight/aileron ";
 private String elevatorCommand = "set /controls/flight/elevator ";
+
+    /**
+     * initialize values in joystick creation
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joy_stick);
+        //get joystick activity
         Intent intent = getIntent();
         try {
             this.tcpClient = new TcpClient();
+            //get ip and port
             this.tcpClient.execute(intent.getStringExtra("ip"), intent.getStringExtra("port"), null);
         }catch(Exception e) {
             System.out.println(e.toString());
@@ -38,11 +45,18 @@ private String elevatorCommand = "set /controls/flight/elevator ";
         super.onConfigurationChanged(newConfig);
     }
 
+    /**
+     * stop tcp client when this class is destroyed
+     */
     public void onDestroy() {
         this.tcpClient.Stop();
         super.onDestroy();
     }
 
+    /**
+     * send ailron and elevator through tcp client
+     * @param flightDetails
+     */
     public void update(FlightDetails flightDetails){
         tcpClient.Send(this.alironCommand + flightDetails.getAilron());
         tcpClient.Send(this.elevatorCommand + flightDetails.getElevator());

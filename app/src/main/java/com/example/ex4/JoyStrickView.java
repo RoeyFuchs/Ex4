@@ -34,6 +34,10 @@ private List<ObserverInterface> obs = new LinkedList<>();
         this.x = this.y = 0;
     }
 
+    /**
+     * draw oval and circle according to x,y,radius
+     * @param canvas
+     */
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
@@ -50,6 +54,13 @@ private List<ObserverInterface> obs = new LinkedList<>();
 
     }
 
+    /**
+     * called when the user resize the window
+     * @param w
+     * @param h
+     * @param oldw
+     * @param oldh
+     */
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         returnDefualt();
@@ -60,17 +71,26 @@ private List<ObserverInterface> obs = new LinkedList<>();
         this.oval = new RectF(this.startWid,this.startHei , this.endWid, this.endHei);
     }
 
+    /**
+     * set default values for x,y, notify observer about the change
+     */
     public void returnDefualt() {
         this.x = (float)getWidth()/2;
         this.y = (float)getHeight()/2;
         notifyObservers(new FlightDetails(normelizeAilron(this.x), normelizeElevator(this.y)));
     }
 
-
+    /**
+     * change x,y according user's input, notify observers
+     * @param event
+     * @return
+     */
     public boolean onTouchEvent(MotionEvent event) {
         int action = MotionEventCompat.getActionMasked(event);
         switch (action) {
+            //if the user touched the screen
             case MotionEvent.ACTION_DOWN: {
+                //check if the input is inside the circle
                 if(CheckIfInside(event.getX(), event.getY())) {
                     this.playMoving = true;
                 }
@@ -79,6 +99,7 @@ private List<ObserverInterface> obs = new LinkedList<>();
             case MotionEvent.ACTION_MOVE: {
                 if (!this.playMoving)
                     return true;
+                //make sure user input is inside limits
                 if (CheckForLimit(event.getX(), event.getY())) {
                     this.x = event.getX();
                     this.y = event.getY();
@@ -87,19 +108,33 @@ private List<ObserverInterface> obs = new LinkedList<>();
                 }
                 break;
             }
+            //user input's is finished
             case MotionEvent.ACTION_UP :
                 this.playMoving = false;
                 returnDefualt();
+                //call on draw
                 invalidate();
         }
         return true;
     }
 
+    /**
+     * check if user touching inside the circle
+     * @param xVal
+     * @param yVal
+     * @return
+     */
     Boolean CheckIfInside(float xVal, float yVal) {
         double distance = Math.sqrt((this.x-xVal)*(this.x-xVal) + (this.y-yVal)*(this.y-yVal));
         return (distance <= this.radius);
     }
 
+    /**
+     * make sure give x,y inside the oval shape
+     * @param xVal
+     * @param yVal
+     * @return
+     */
     Boolean CheckForLimit(float xVal, float yVal) {
         return (this.oval.contains(xVal, yVal));
         // &&

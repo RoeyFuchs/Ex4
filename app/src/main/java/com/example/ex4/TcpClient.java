@@ -13,7 +13,11 @@ public class TcpClient extends AsyncTask<String, String, Void> {
     private DataOutputStream outToServer;
     private BlockingQueue<String> queue = new LinkedBlockingDeque<>();
 
-
+    /**
+     * create socket and data output stream and send data from queue to server
+     * @param strings
+     * @return null
+     */
     @Override
     protected Void doInBackground(String... strings) {
         try {
@@ -28,7 +32,12 @@ public class TcpClient extends AsyncTask<String, String, Void> {
          }
         return null;
     }
-public void Send(String str) {
+
+    /**
+     * add new data to queue
+     * @param str
+     */
+    public void Send(String str) {
         try {
             this.queue.put(str);
         }catch (Exception e) {
@@ -36,7 +45,10 @@ public void Send(String str) {
         }
 }
 
-public void Stop() {
+    /**
+     * close client socket
+     */
+    public void Stop() {
         try {
             this.clientSocket.close();
         } catch(Exception e) {

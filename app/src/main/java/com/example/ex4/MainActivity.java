@@ -14,10 +14,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * connect to simulator
+     * @param view
+     */
     public void ConnectSim(View view) {
+        //get ip and port
         EditText ip = (EditText) findViewById(R.id.IPInput);
         EditText port = (EditText) findViewById(R.id.PortInput);
+        //create new activity
         Intent intent = new Intent(this, JoyStick.class);
+        //convert to strings
         String ipNum = ip.getText().toString();
         String portNum = port.getText().toString();
         intent.putExtra("ip", ipNum);
